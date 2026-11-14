@@ -1,0 +1,14 @@
+{
+  "name": "Fake Join Date",
+  "description": "Visually changes your Discord account creation date on your profile.",
+  "authors": [
+    {
+      "name": "Custom",
+      "id": "000000000000000000"
+    }
+  ],
+  "main": "index.js",
+  "vendetta": {
+    "icon": "ic_clock_24px"
+  }
+}
