@@ -1,6 +1,6 @@
 (function () {
   const REAL_DATE = "Oct 15, 2024";
-  const CUSTOM_DATE = "Feb 7, 2001";
+  const CUSTOM_DATE = "Sep 11, 2001";
 
   const { React } = vendetta.metro.common;
   const { findByProps } = vendetta.metro;
