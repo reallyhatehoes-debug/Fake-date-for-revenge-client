@@ -2,26 +2,31 @@
   const REAL_DATE = "Oct 15, 2025";
   const CUSTOM_DATE = "May 7, 2015";
 
-  const { ReactNative } = vendetta.metro.common;
-  const { after } = vendetta.patcher;
+  const { React } = vendetta.metro.common;
+  const { before } = vendetta.patcher;
 
   let unpatch;
 
+  function swapDate(val) {
+    if (typeof val === "string" && val.includes(REAL_DATE)) {
+      return val.replace(REAL_DATE, CUSTOM_DATE);
+    }
+    if (Array.isArray(val)) {
+      return val.map(swapDate);
+    }
+    return val;
+  }
+
   return {
     onLoad: function () {
-      unpatch = after("render", ReactNative.Text, function (_, res) {
-        if (!res || !res.props || !res.props.children) return;
-
-        if (typeof res.props.children === "string" && res.props.children.includes(REAL_DATE)) {
-          res.props.children = res.props.children.replace(REAL_DATE, CUSTOM_DATE);
+      unpatch = before("createElement", React, function (args) {
+        if (args[1] && args[1].children) {
+          args[1].children = swapDate(args[1].children);
         }
-
-        if (Array.isArray(res.props.children)) {
-          res.props.children = res.props.children.map(function (child) {
-            return typeof child === "string" && child.includes(REAL_DATE)
-              ? child.replace(REAL_DATE, CUSTOM_DATE)
-              : child;
-          });
+        if (args.length > 2) {
+          for (let i = 2; i < args.length; i++) {
+            args[i] = swapDate(args[i]);
+          }
         }
       });
     },
