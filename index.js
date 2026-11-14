@@ -1,5 +1,5 @@
 (function () {
-  const REAL_DATE = "Oct 15, 2025";
+  const REAL_DATE = "Oct 15, 2024";
   const CUSTOM_DATE = "May 7, 2015";
 
   const { React } = vendetta.metro.common;
